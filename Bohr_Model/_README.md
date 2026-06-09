@@ -10,3 +10,6 @@ Simulates electron orbiting a nucleus using Coulomb's force and circular motion.
 ## Built With
 - C++
 - SFML
+
+## Demo
+- ![Demo](Bohr_Model.gif)

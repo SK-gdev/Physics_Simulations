@@ -10,3 +10,6 @@ Simulates a solar system where the user can spawn planets, they gain their orbit
 ## Built With
 - C++
 - SFML
+
+## Demo
+- ![Demo](N_Body.gif)

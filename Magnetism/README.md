@@ -8,3 +8,6 @@ Simulates two charged particles placed close to each other. One is fixed and use
 ## Built With
 - C++
 - SFML
+
+## Demo
+- ![Demo](Magnetism.gif)
