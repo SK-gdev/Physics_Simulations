@@ -1,7 +1,5 @@
 #include<iostream>
 #include<math.h>
-#include<sstream>
-#include<iomanip>
 
 struct Vec2
 {
@@ -84,12 +82,20 @@ struct Particle
     float mass;
     float radius;
     float restitution;
+    float charge;
 
-    Particle(float x, float y, float m, float r, float rest): position(x,y), force(0.0f,0.0f), velocity(0.0f,0.0f), mass(m), radius(r), restitution(rest){}
+    Particle(float x, float y, float m, float r, float rest, float ch): position(x,y), force(0.0f,0.0f), velocity(0.0f,0.0f), mass(m), radius(r), restitution(rest), charge(ch){}
 
     void applyforce(const Vec2& f)
     {
         force += f;
+    }
+
+    
+
+    Vec2 MagneticForce(const float Bz)
+    {
+        return Vec2(charge*velocity.y*Bz, charge*velocity.x*Bz);
     }
     
     void update(float dt)
@@ -126,3 +132,16 @@ Vec2 rebound(const Particle& v, const Vec2& n)
     }
     
 }
+
+    float MagneticField(const Particle& source, const Particle& p, const float I, const float k)
+    {
+        Vec2 diff = p.position - source.position;
+        float r = diff.length();
+        Vec2 diff_dir = diff.getdirection();
+
+        float B = (k*I)/r; //Magnitude
+        Vec2 B_dir = Vec2(-diff_dir.y,diff_dir.x);
+        float sign = diff_dir.cross(B_dir);
+        return B*sign; // if sign is positive, the field is out of plane, else in plane. So, multiplying with sign will give the correct direction to the field
+
+    }
